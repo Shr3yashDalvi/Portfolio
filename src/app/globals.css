@@ -1,26 +1,139 @@
 @import "tailwindcss";
 
-:root {
-  --background: #ffffff;
-  --foreground: #171717;
-}
-
-@theme inline {
-  --color-background: var(--background);
-  --color-foreground: var(--foreground);
-  --font-sans: var(--font-geist-sans);
-  --font-mono: var(--font-geist-mono);
-}
-
-@media (prefers-color-scheme: dark) {
-  :root {
-    --background: #0a0a0a;
-    --foreground: #ededed;
+@theme {
+  --font-sans: 'Inter', system-ui, -apple-system, sans-serif;
+  --font-mono: 'JetBrains Mono', monospace;
+  
+  --color-primary: #4F3FF0;
+  --color-primary-light: #EBE9FD;
+  --color-accent-emerald: #059669;
+  --color-accent-cyan: #0891B2;
+  --color-dark-bg: #FFFFFF;
+  --color-card-bg: rgba(255, 255, 255, 0.7);
+  
+  --animate-pulse-slow: pulse-slow 3s ease-in-out infinite;
+  --animate-glow-flow: glow-flow 4s linear infinite;
+  
+  @keyframes pulse-slow {
+    0%, 100% { opacity: 1; transform: scale(1); }
+    50% { opacity: 0.6; transform: scale(1.02); }
+  }
+  @keyframes glow-flow {
+    0% { background-position: 0% 50%; }
+    50% { background-position: 100% 50%; }
+    100% { background-position: 0% 50%; }
   }
 }
 
-body {
-  background: var(--background);
-  color: var(--foreground);
-  font-family: Arial, Helvetica, sans-serif;
+:root {
+  --background: #FAFAFA;
+  --foreground: #111111;
+  scroll-behavior: smooth;
 }
+
+body {
+  background-color: var(--background);
+  color: var(--foreground);
+  overflow-x: hidden;
+  font-family: var(--font-sans);
+}
+
+/* Custom Utilities for Glassmorphism & Glows */
+.glass-panel {
+  background: rgba(255, 255, 255, 0.75);
+  backdrop-filter: blur(16px);
+  -webkit-backdrop-filter: blur(16px);
+  border: 1px solid rgba(0, 0, 0, 0.05);
+  box-shadow: 0 10px 30px -15px rgba(0, 0, 0, 0.05);
+}
+
+.glass-panel-hover:hover {
+  background: rgba(255, 255, 255, 0.9);
+  border-color: rgba(79, 63, 240, 0.2);
+  box-shadow: 0 15px 35px -10px rgba(79, 63, 240, 0.05), 0 5px 15px -5px rgba(0, 0, 0, 0.02);
+}
+
+/* Glow Elements (adjusted for light theme to be very subtle) */
+.glow-spot-indigo {
+  position: absolute;
+  width: 50vw;
+  height: 50vw;
+  max-width: 500px;
+  max-height: 500px;
+  border-radius: 50%;
+  background: radial-gradient(circle, rgba(79, 63, 240, 0.04) 0%, transparent 70%);
+  filter: blur(60px);
+  pointer-events: none;
+  z-index: 0;
+}
+
+.glow-spot-emerald {
+  position: absolute;
+  width: 40vw;
+  height: 40vw;
+  max-width: 400px;
+  max-height: 400px;
+  border-radius: 50%;
+  background: radial-gradient(circle, rgba(5, 150, 105, 0.03) 0%, transparent 70%);
+  filter: blur(60px);
+  pointer-events: none;
+  z-index: 0;
+}
+
+/* Grid Background overlay for Light Mode */
+.grid-bg {
+  background-image: 
+    linear-gradient(rgba(0, 0, 0, 0.015) 1px, transparent 1px),
+    linear-gradient(90deg, rgba(0, 0, 0, 0.015) 1px, transparent 1px);
+  background-size: 40px 40px;
+  background-position: center;
+}
+
+/* Scrollbar customization */
+::-webkit-scrollbar {
+  width: 8px;
+}
+
+::-webkit-scrollbar-track {
+  background: #FAFAFA;
+}
+
+::-webkit-scrollbar-thumb {
+  background: rgba(79, 63, 240, 0.2);
+  border-radius: 4px;
+}
+
+::-webkit-scrollbar-thumb:hover {
+  background: rgba(79, 63, 240, 0.4);
+}
+
+/* Active Status Pill Pulse */
+@keyframes status-pulse {
+  0%, 100% { box-shadow: 0 0 0 0 rgba(5, 150, 105, 0.2); }
+  50% { box-shadow: 0 0 0 6px rgba(5, 150, 105, 0); }
+}
+
+.status-dot-pulse {
+  animation: status-pulse 2s infinite;
+}
+
+/* Custom text cursor blink for Terminal */
+@keyframes terminal-blink {
+  0%, 100% { opacity: 1; }
+  50% { opacity: 0; }
+}
+
+.terminal-cursor {
+  animation: terminal-blink 1s step-end infinite;
+}
+
+/* Outline Text Effect class */
+.bg-outline-text {
+  font-family: var(--font-sans);
+  font-weight: 900;
+  -webkit-text-stroke: 1.5px rgba(0, 0, 0, 0.03);
+  color: transparent;
+  user-select: none;
+  pointer-events: none;
+}
+

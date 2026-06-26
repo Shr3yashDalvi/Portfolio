@@ -25,6 +25,12 @@
 /build
 /dist
 
+# cache
+
+.cache
+.turbo
+.eslintcache
+
 # misc
 
 .DS_Store
@@ -61,3 +67,8 @@ next-env.d.ts
 !.vscode/extensions.json
 !.vscode/settings.json
 .idea
+
+# ai assistant / local instruction files
+
+AGENTS.md
+CLAUDE.md
